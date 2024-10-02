@@ -1,0 +1,168 @@
+﻿<Window x:Class="_11_GridLayout.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_11_GridLayout"
+        mc:Ignorable="d"
+        Title="Gestione Utente" Height="450" Width="800">
+    <Grid Margin="0,19,0,-19">
+        <!-- Row Definitions va a stabilire quante righe ha la Grid-->
+        <Grid.RowDefinitions>
+            
+            <!-- L'asterisco"*" ripartisce le righe in automatico
+            in base alla grandezza in pixel della finestra.-->
+<!-- 1* riga--><RowDefinition Height="*"/>
+<!-- 2* riga--><RowDefinition Height="*"/>
+<!-- 3* riga--><RowDefinition Height="*"/>
+<!-- 4* riga--><RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <!-- "2*" raddoppia la grandezza.-->
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!-- Per default TextBlock va ad inserirsi nella
+        prima riga-->
+        <TextBlock Text="Nome" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+
+        <!-- Andiamo a precisare che il TextBlock "Cognome"
+        deve inserirsi nella riga 1, e non di default nella
+        riga 0.-->
+        <TextBlock Text="Cognome" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+        <TextBlock Text="Data Nascita" Grid.Row="2" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+        
+        
+        <Grid Grid.ColumnSpan="2" Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <!-- "2*" raddoppia la grandezza.-->
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnSalva" Content="SALVA" FontSize="15" FontWeight="Bold" Click="btnSalva_Click"/>
+            <Button x:Name="btnVisualizza" Grid.Column="1" Content="VISUALIZZA" FontSize="15" FontWeight="Bold" Click="btnVisualizza_Click"/>
+
+        </Grid>
+        <TextBox x:Name="txtNome" Grid.Column="1"/>
+        <TextBox x:Name="txtCognome" Grid.Row="1" Grid.Column="1" FontSize="15"/>
+        <DatePicker x:Name="txtData" Grid.Row="2" Grid.Column="1"/>
+    </Grid>
+</Window>
+
+<!-- 
+    1) <Grid.RowDefinitions>
+       <Grid.ColumnDefinitions>
+    
+    In WPF, il layout dei controlli all'interno di un Grid può essere 
+    organizzato utilizzando le righe e le colonne definite attraverso 
+    le proprietà RowDefinitions e ColumnDefinitions. Queste proprietà 
+    consentono di specificare come il Grid deve essere suddiviso in 
+    righe e colonne, rispettivamente.
+    
+    ▪ <Grid.RowDefinitions>:
+    Questo tag definisce le righe all'interno del Grid. All'interno di 
+    <Grid.RowDefinitions>, puoi specificare le diverse righe del Grid 
+    e le relative altezze. Ogni riga è definita utilizzando un tag 
+    <RowDefinition> che specifica l'altezza della riga. Ad esempio, 
+    <RowDefinition Height="*"/> imposta l'altezza di una riga in modo 
+    che essa si espanda per riempire lo spazio disponibile rimanente nel 
+    Grid. L'altezza * indica che la riga si espanderà dinamicamente in 
+    base allo spazio disponibile. Nel nostro codice, ci sono quattro 
+    righe definite con altezza uguale (Height="*") ciascuna.
+    
+    ▪ <Grid.ColumnDefinitions>:
+    Questo tag definisce le colonne all'interno del Grid. All'interno di 
+    <Grid.ColumnDefinitions>, puoi specificare le diverse colonne del Grid 
+    e le relative larghezze. Ogni colonna è definita utilizzando un tag 
+    <ColumnDefinition> che specifica la larghezza della colonna. Ad esempio, 
+    <ColumnDefinition Width="*"/> imposta la larghezza di una colonna in 
+    modo che essa si espanda per riempire lo spazio disponibile rimanente 
+    nel Grid. Larghezza * indica che la colonna si espanderà dinamicamente 
+    in base allo spazio disponibile. Nel nostro codice, ci sono due colonne 
+    definite, la prima con larghezza "*" e la seconda con larghezza "2*", 
+    che indica che la seconda colonna è due volte più larga della prima.
+    
+    <Grid.RowDefinitions> e <Grid.ColumnDefinitions> sono utilizzati per 
+    definire rispettivamente le righe e le colonne di un Grid, specificando 
+    le dimensioni delle righe e delle colonne all'interno del layout dell'interfaccia 
+    utente.
+    
+    
+**********************************************************************************************
+    
+    2) <Grid Grid.ColumnSpan="2" Grid.Row="3">
+    
+    Qui Stiamo utilizzando un Grid all'interno di un altro Grid.  Abbiamo 
+    un elemento Grid che è stato posizionato all'interno della finestra 
+    principale (MainWindow) attraverso il layout del Grid principale.
+    ▪ Grid.ColumnSpan="2": 
+    Questo attributo specifica che l'elemento Grid deve espandersi su due 
+    colonne del Grid genitore. Ciò significa che occupa lo spazio di due 
+    colonne del Grid principale. Di solito, Grid.ColumnSpan viene utilizzato 
+    per far sì che un elemento occupi più colonne del Grid.
+    ▪ Grid.Row="3": Questo attributo specifica che l'elemento Grid deve 
+    essere posizionato nella quarta riga del Grid genitore. Gli indici delle 
+    righe in XAML iniziano da zero, quindi Grid.Row="3" indica che l'elemento 
+    si trova nella quarta riga. Di solito, Grid.Row viene utilizzato per 
+    posizionare un elemento in una determinata riga del Grid.
+    
+    L'elemento Grid che abbiamo definito con Grid.ColumnSpan="2" 
+    e Grid.Row="3" si estende su due colonne e si trova nella quarta riga del 
+    Grid genitore.
+    Insomma, questa parte del codice XAML definisce un altro Grid all'interno 
+    del Grid principale della finestra.
+    ▪ <Grid Grid.ColumnSpan="2" Grid.Row="3">: Questo Grid è posizionato nella 
+    quarta riga (Grid.Row="3") e si estende su due colonne (Grid.ColumnSpan="2").
+    Ciò significa che occupa lo spazio di due colonne del Grid genitore e si 
+    trova nella quarta riga.
+    ▪ <Grid.ColumnDefinitions>: All'interno di questo Grid, abbiamo definito due 
+    colonne utilizzando il tag <Grid.ColumnDefinitions>. Entrambe le colonne 
+    sono definite con una larghezza proporzionale (Width="*"), il che significa 
+    che ognuna occupa una parte uguale dello spazio disponibile nella riga del Grid.
+    ▪ <Button x:Name="btnSalva" Content="SALVA" FontSize="15" FontWeight="Bold" Click="btnSalva_Click"/>:
+    Questo è un pulsante di salvataggio denominato btnSalva. È collocato nella 
+    prima colonna del Grid interno poiché non è specificato alcun attributo 
+    Grid.Column. Quando viene cliccato, viene eseguito il gestore eventi btnSalva_Click.
+    ▪ <Button x:Name="btnVisualizza" Grid.Column="1" Content="VISUALIZZA" FontSize="15" FontWeight="Bold" Click="btnVisualizza_Click"/>:
+    Questo è un altro pulsante denominato btnVisualizza. Utilizza l'attributo 
+    Grid.Column="1" per specificare che deve essere collocato nella seconda 
+    colonna del Grid interno. Quando viene cliccato, viene eseguito il gestore 
+    eventi btnVisualizza_Click.
+    
+    In sintesi, questo Grid interno consente di organizzare due pulsanti (btnSalva 
+    e btnVisualizza) all'interno della quarta riga della finestra principale, 
+    ciascuno occupando una colonna del Grid interno e con larghezza proporzionale.
+    
+**********************************************************************************************
+    
+    3) <TextBox x:Name="txtNome" Grid.Column="1"/>
+       <TextBox x:Name="txtCognome" Grid.Row="1" Grid.Column="1" FontSize="15"/>
+       <DatePicker x:Name="txtData" Grid.Row="2" Grid.Column="1"/>
+    
+     Abbiamo definito tre controlli di input: due caselle di testo (TextBox) per 
+     il nome e il cognome, e un selettore di date (DatePicker) per la data di nascita. 
+    ▪ <TextBox x:Name="txtNome" Grid.Column="1"/>
+    Questo <TextBox> è stato dichiarato con l'attributo x:Name impostato su txtNome, 
+    il che significa che il controllo può essere riferito nel codice dietro la vista 
+    (code-behind) tramite questo nome. È stato specificato Grid.Column="1", il che 
+    significa che il controllo è collocato nella seconda colonna (Column="1") del 
+    Grid genitore. Poiché il conteggio delle colonne inizia da zero, la seconda colonna 
+    ha un indice di 1.
+    ▪ <TextBox x:Name="txtCognome" Grid.Row="1" Grid.Column="1" FontSize="15"/>
+    Questo <TextBox> è stato dichiarato con x:Name="txtCognome", che lo rende accessibile 
+    nel codice dietro la vista. È stato specificato Grid.Row="1" Grid.Column="1", il 
+    che significa che il controllo è collocato nella seconda colonna (Column="1") e 
+    nella seconda riga (Row="1") del Grid genitore. Inoltre, abbiamo specificato 
+    FontSize="15" per impostare la dimensione del testo a 15. 
+    ▪ <DatePicker x:Name="txtData" Grid.Row="2" Grid.Column="1"/> 
+    Questo <DatePicker> è stato dichiarato con x:Name="txtData", che lo rende accessibile 
+    nel codice dietro la vista. È stato specificato Grid.Row="2" Grid.Column="1", quindi 
+    è collocato nella seconda colonna (Column="1") e nella terza riga (Row="2") del Grid 
+    genitore.
+    
+    In sintesi, questi tre controlli di input sono posizionati in posizioni specifiche 
+    all'interno del layout del Grid principale della finestra, consentendo all'utente 
+    di inserire il nome, il cognome e la data di nascita.
+    
+    -->
