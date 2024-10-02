@@ -1,0 +1,32 @@
+﻿<Window x:Class="Risorse.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Risorse"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="Gestione Risorse" Height="250" Width="500">
+    <Window.Resources>
+        <sys:String x:Key="resource_window">Risorsa associata alla finestra</sys:String> 
+    </Window.Resources>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" x:Name="pannello">
+            <StackPanel.Resources>
+                <sys:String x:Key="resource_local">Elenco Voci</sys:String>
+                <x:Array x:Key="voci" Type="sys:String">
+                    <sys:String>Seleziona</sys:String>
+                    <sys:String>Voce1</sys:String>
+                    <sys:String>Voce2</sys:String>
+                    <sys:String>Voce3</sys:String>
+                </x:Array>
+   
+            </StackPanel.Resources>
+            <TextBox Text="{StaticResource resource_local}" />
+            <ComboBox x:Name="combo" ItemsSource="{StaticResource voci}" SelectedIndex="0" />
+            <ListBox x:Name="lst" />
+        </StackPanel>
+       
+        <Button x:Name="btn" Content="AVVIA" Click="btn_Click" />
+    </DockPanel>
+</Window>

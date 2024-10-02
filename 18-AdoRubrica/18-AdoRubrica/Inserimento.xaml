@@ -1,0 +1,56 @@
+﻿<Window x:Class="_18_AdoRubrica.Inserimento"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_18_AdoRubrica"
+        mc:Ignorable="d"
+        Title="Inserimento" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+        <Style TargetType="TextBox">
+
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+        <Style TargetType="Button">
+
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="griglia">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Nome"  />
+        <TextBlock Text="Cognome" Grid.Row="1" />
+        <TextBlock Text="Data Nascita" Grid.Row="2"  />
+        <TextBlock Text="Citta" Grid.Row="3"  />
+        <TextBlock Text="Nazioni" Grid.Row="4"  />
+        <Button x:Name="btnSalva" Grid.Row="5" Grid.ColumnSpan="2" Content="SALVA" Click="btnSalva_Click" />
+
+        <TextBox x:Name="txtNome" Grid.Column="1" />
+        <TextBox x:Name="txtCognome" Grid.Column="1" Grid.Row="1"  />
+        <DatePicker Name="txtNascita"  Grid.Column="1" Grid.Row="2" FontWeight="Bold" FontSize="24" />
+        <TextBox x:Name="txtCitta" Grid.Column="1" Grid.Row="3" />
+        <!-- SelectValuePath deve corrispondere ai campi della tabella
+        nel database-->
+        <ComboBox x:Name="comNazioni" SelectedValuePath="IdNazione" DisplayMemberPath="Nome" Grid.Column="1" Grid.Row="4" FontSize="20" />
+    </Grid>
+</Window>

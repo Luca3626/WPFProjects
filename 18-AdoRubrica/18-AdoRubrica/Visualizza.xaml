@@ -1,0 +1,14 @@
+﻿<Window x:Class="_18_AdoRubrica.Visualizza"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_18_AdoRubrica"
+        mc:Ignorable="d"
+        Title="Visualizza" Height="450" Width="800" Loaded="Window_Loaded">
+    <DockPanel>
+        <Button x:Name="btn" Content="CANCELLA" DockPanel.Dock="Bottom" 
+            FontWeight="Bold" FontSize="20" Click="btn_Click" />
+        <DataGrid x:Name="griglia" ColumnWidth="*" SelectionMode="Extended" />
+    </DockPanel>
+</Window>

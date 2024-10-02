@@ -1,0 +1,105 @@
+﻿<Window x:Class="_20_DataContext.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_20_DataContext"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" x:Name="fin">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="10,0,10,0"/>
+        </Style>
+        
+        <Style TargetType="TextBox">
+            <Setter Property="Width" Value="150"/>
+        </Style>
+    </Window.Resources>
+    <StackPanel>
+        <WrapPanel>
+            <TextBlock Text="Titolo"/>
+            <!-- TextBox x:Name="title" Text="{Binding ElementName=fin, Path=Title}"/ -->
+            <TextBox x:Name="title" Text="{Binding Path=Title}"/>
+        </WrapPanel>
+        <WrapPanel>
+            <TextBlock Text="Lunghezza"/>
+            <!-- TextBox x:Name="widthFin" Text="{Binding ElementName=fin, Path=Width}"/ -->
+            <TextBox x:Name="widthFin" Text="{Binding Path=Width, UpdateSourceTrigger=Explicit}"/>
+        </WrapPanel>
+        <WrapPanel>
+            <TextBlock Text="Altezza"/>
+            <!-- TextBox x:Name="heigthFin" Text="{Binding ElementName=fin, Path=Height}"/ -->
+            <TextBox x:Name="heightFin" Text="{Binding Path=Height, UpdateSourceTrigger=Explicit}"/>
+        </WrapPanel>
+        <WrapPanel>
+            <Button x:Name="btn" Content="Aggiorna" Click="btn_Click"/>
+        </WrapPanel>
+    </StackPanel>
+</Window>
+    
+    <!--
+    1) <TextBox x:Name="title" Text="{Binding ElementName=fin, Path=Title}"/>
+    
+    Questa parte del codice XAML definisce un TextBox denominato title e specifica 
+    come deve essere legato il testo al suo interno al contesto dei dati. In 
+    particolare, viene utilizzato il meccanismo di binding per collegare il testo 
+    del TextBox alla proprietà Title della finestra principale.
+    - TextBox: È il controllo WPF che consente all'utente di inserire testo.
+    - x:Name="title": Questo attributo definisce un nome univoco per il TextBox 
+      all'interno del codice XAML. Il nome viene utilizzato per fare riferimento 
+      a questo controllo da altre parti del codice XAML o dal codice dietro.
+    - Text="{Binding ElementName=fin, Path=Title}": Questa è la dichiarazione di 
+      un binding del testo del TextBox.
+    - Text: Indica la proprietà del TextBox che si desidera legare al contesto 
+      dei dati, cioè il testo all'interno del TextBox.
+    - {Binding ...}: Questa è la sintassi usata in XAML per impostare un binding 
+      dei dati tra una proprietà dell'elemento e una proprietà del contesto dei dati.
+    - ElementName=fin: Questo attributo specifica l'elemento di cui si vuole legare 
+      la proprietà. In questo caso, fin è il nome della finestra principale 
+      dell'applicazione ( Title="MainWindow" Height="450" Width="800" x:Name="fin">,
+      all'inizio, all'interno del tag Window.)
+    - Path=Title: Questo attributo specifica il percorso della proprietà nel contesto 
+      dei dati a cui si desidera legare il testo del TextBox. In questo caso, si tratta 
+      della proprietà Title della finestra principale.
+    
+    In pratica, questo binding stabilisce che il testo del TextBox sarà sempre uguale 
+    al valore della proprietà Title della finestra principale. Quindi, se la proprietà 
+    Title della finestra principale viene modificata, il testo del TextBox verrà 
+    automaticamente aggiornato per riflettere questo cambiamento, poiché è legato alla 
+    proprietà Title. 
+    
+    
+    
+    
+    2) <TextBox x:Name="widthFin" Text="{Binding Path=Width, UpdateSourceTrigger=Explicit}"/>
+    
+    Questa parte del codice XAML definisce un TextBox denominato widthFin e 
+    specifica come il suo testo deve essere legato al contesto dei dati. 
+    - <TextBox x:Name="widthFin" Text="{Binding Path=Width, UpdateSourceTrigger=Explicit}"/>: 
+      Questa è la definizione del TextBox.
+    - x:Name="widthFin": Questo attributo assegna un nome univoco al TextBox, 
+      che può essere utilizzato per fare riferimento ad esso da altre parti 
+      del codice XAML o dal codice dietro.
+    - Text="{Binding Path=Width, UpdateSourceTrigger=Explicit}": Questa parte 
+      specifica il legame dei dati per il testo del TextBox.
+    - Text: Questo è l'attributo che stabilisce il testo visualizzato nel TextBox.
+    - {Binding ...}: Indica che si desidera legare il testo del TextBox a un 
+      valore specifico nel contesto dei dati.
+    - Path=Width: Specifica il percorso della proprietà nel contesto dei dati 
+      a cui si desidera legare il testo del TextBox. In questo caso, si tratta 
+      della proprietà Width.
+    - UpdateSourceTrigger=Explicit: Questo attributo specifica il comportamento 
+      di aggiornamento dei dati. In questo caso, Explicit significa che l'aggiornamento 
+      dei dati dalla fonte al target avviene solo esplicitamente, ad esempio 
+      quando si chiama il metodo UpdateSource() nel codice dietro.
+    
+    In sintesi, questo codice XAML definisce un TextBox chiamato widthFin il cui 
+    testo è legato alla proprietà Width nel contesto dei dati. Inoltre, l'aggiornamento 
+    dei dati avviene solo esplicitamente quando viene richiamato il metodo UpdateSource().
+
+
+
+
+-->

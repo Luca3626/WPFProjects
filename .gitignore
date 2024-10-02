@@ -1,0 +1,28 @@
+# Cartelle di build
+bin/
+obj/
+
+# File di log e database temporanei
+*.log
+*.ldf
+*.mdf
+
+# File di impostazioni di Visual Studio
+.vs/
+*.vscode/
+
+# File di configurazione utente
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# File temporanei e di backup
+*.tmp
+*.bak
+*.old
+*.orig
+
+# File di pacchetti NuGet
+packages/
+*.nupkg

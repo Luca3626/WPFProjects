@@ -1,0 +1,314 @@
+﻿<Window x:Class="_17___DataBinding.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_17___DataBinding"
+        mc:Ignorable="d"
+        Title="Esempio DataBinding" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="Margin" Value="10,10,10,10"/>
+            <Setter Property="Width" Value="100"/>
+        </Style>
+    </Window.Resources>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Right">
+            <WrapPanel>
+                <Button x:Name="btnAdd" Content="Add" Click="Click_Add"/>
+            </WrapPanel>
+            <WrapPanel>
+                <Button x:Name="btnUpdate" Content="Update" Click="btnUpdate_Click"/>
+            </WrapPanel>
+            <WrapPanel>
+                <Button x:Name="btnDelete" Content="Delete" Click="btnDelete_Click"/>
+            </WrapPanel>
+        </StackPanel>
+        <ListBox x:Name="lst" SelectionMode="Extended" DisplayMemberPath="Nome_Cognome"/>
+    </DockPanel>
+<!-- la riga: 
+<ListBox x:Name="lst" SelectionMode="Extended" DisplayMemberPath="Nome_Cognome"/>
+crea un elemento ListBox nella tua applicazione WPF (Windows Presentation 
+Foundation).
+- x:Name="lst": Imposta il nome del ListBox a "lst". Questo nome può essere 
+utilizzato nel codice dietro (codice C#) per fare riferimento e manipolare 
+questa specifica istanza di ListBox.
+- SelectionMode="Extended": Imposta la modalità di selezione del ListBox 
+su "Extended", il che significa che gli utenti possono selezionare più 
+elementi contemporaneamente.
+-DisplayMemberPath="Nome_Cognome": Questo attributo specifica la proprietà 
+dei dati che verrà visualizzata come testo per ogni elemento nella ListBox.
+In questo caso, la proprietà Nome_Cognome dell'oggetto legato sarà 
+visualizzata come contenuto testuale per ogni elemento nella lista. 
+Quindi, ad esempio, se la tua lista contiene oggetti della classe User, 
+la ListBox mostrerà i valori della proprietà Nome_Cognome di ciascun 
+oggetto nella lista.
+
+Domanda mia: "Io però nel mio tag listbox, all'attributo DisplayMemberPath 
+ho inserito solo "Nome_Cognome" e non User.Nome_Cognome. Va bene uguale ?
+
+Risposta:"Sì, va bene uguale! Quando specifichi solo "Nome_Cognome" come 
+valore per l'attributo DisplayMemberPath della ListBox, il motore di binding 
+di WPF interpreta automaticamente che la proprietà Nome_Cognome è presente 
+negli elementi della ListBox stessa. Dal momento che gli elementi della 
+ListBox sono istanze della classe User, il binding sarà effettuato con 
+la proprietà Nome_Cognome degli oggetti User.
+In breve, WPF assume implicitamente che il contesto del data binding sia 
+l'elemento dell'ItemSource della ListBox, che nel tuo caso è una collezione 
+di oggetti User, quindi specificare solo "Nome_Cognome" è sufficiente per 
+collegare correttamente la proprietà Nome_Cognome degli oggetti User al 
+contenuto visualizzato nella ListBox.
+
+Domanda mia: come fa però a sapere la listbox che i suoi elementi sono 
+istanze della classe User ?
+Risposta: La ListBox non sa automaticamente che i suoi elementi sono istanze 
+della classe User. Tuttavia, questa informazione viene implicitamente fornita 
+quando si imposta la ItemSource della ListBox su una collezione di oggetti User.
+Quando imposti la ItemSource della ListBox su una collezione di oggetti User, 
+ad esempio nel codice dietro l'interfaccia utente (MainWindow.xaml.cs), 
+come hai fatto nel metodo Window_Loaded:
+
+private void Window_Loaded(object sender, RoutedEventArgs e)
+{
+    users = new ObservableCollection<User>
+    {
+        new User { Nome_Cognome = "Mario Rossi" },
+        new User { Nome_Cognome = "Mario Verdi" },
+        new User { Nome_Cognome = "Mario Esposito" }
+    };
+
+    lst.ItemsSource = users;
+}
+
+In questo modo, stai dicendo esplicitamente alla ListBox che gli elementi 
+che deve visualizzare sono contenuti nella collezione di oggetti User users.
+Quando imposti l'attributo DisplayMemberPath su "Nome_Cognome", come hai 
+fatto nell'XAML:
+
+<ListBox x:Name="lst" SelectionMode="Extended" DisplayMemberPath="Nome_Cognome"/>
+
+Stai dicendo alla ListBox di usare la proprietà Nome_Cognome degli oggetti 
+User come valore da visualizzare per ogni elemento nella lista. La ListBox 
+interpreta quindi ogni oggetto all'interno della sua ItemSource (nel tuo caso, 
+una collezione di oggetti User) come un'istanza della classe User e accede 
+alla proprietà Nome_Cognome di ciascun oggetto per visualizzarne il contenuto.-->
+</Window>
+
+
+
+<!--
+    1) 
+    <Window.Resources>
+    
+    
+    Il tag <Window.Resources> in un file XAML viene utilizzato per
+    definire risorse che sono specifiche per la finestra (o per il 
+    controllo contenitore in cui viene utilizzato, come ad esempio 
+    <UserControl.Resources> per gli UserControl). Queste risorse 
+    possono includere stili, modelli, valori predefiniti, dizionari 
+    di risorse e altro ancora. Il loro scopo principale è quello di 
+    fornire un meccanismo per la gestione e la riutilizzazione di 
+    risorse all'interno della finestra o del controllo.
+    Ecco cosa fa e quale utilizzo pratico ha il tag <Window.Resources>:
+    - Definizione di stili e modelli: Uno dei principali utilizzi di 
+      <Window.Resources> è la definizione di stili per gli elementi UI 
+      all'interno della finestra. Come nel nostro esempio, possiamo 
+      definire uno stile per un determinato tipo di controllo (ad esempio, 
+      Button) all'interno di <Window.Resources>. Questo stile sarà quindi 
+      disponibile per tutti i controlli di quel tipo all'interno della 
+      finestra, consentendo di mantenere uno stile uniforme in tutta 
+      l'applicazione.
+    - Gestione di risorse condivise: Puoi utilizzare <Window.Resources> 
+      per definire risorse condivise che possono essere utilizzate da più 
+      elementi all'interno della finestra. Ad esempio, se hai un colore 
+      o una stringa che viene utilizzato in diversi punti all'interno della 
+      finestra, puoi definirlo come risorsa all'interno di <Window.Resources> 
+      e poi riferirti ad esso negli altri elementi dell'interfaccia utente.
+    - Riduzione della duplicazione del codice: Utilizzando <Window.Resources>, 
+      puoi ridurre la duplicazione del codice definendo una volta sola una 
+      risorsa che può essere riutilizzata in più punti all'interno della 
+      finestra. Questo porta a un codice più pulito, più gestibile e più 
+      manutenibile.
+    
+    In sintesi, <Window.Resources> è un elemento fondamentale nella progettazione 
+    delle interfacce utente XAML, consentendo di definire e gestire in modo 
+    efficiente risorse condivise all'interno della finestra o del controllo.
+
+****************************************************************************************************************
+
+    2)
+    
+    <Style TargetType="Button">
+    <Setter Property="FontSize" Value="24" />
+    <Setter Property="Margin" Value="10,10,10,10"/>
+    <Setter Property="Width" Value="100"/>
+    </Style>
+
+    
+    
+    Questo pezzo di codice definisce uno stile per tutti i bottoni 
+    (TargetType="Button") all'interno della finestra principale 
+    (MainWindow.xaml). Qui ci sono le spiegazioni per ogni riga di 
+    codice all'interno di questo stile:
+    - <Style TargetType="Button">: Questo indica che stiamo definendo 
+      uno stile per tutti gli elementi Button nell'interfaccia utente. 
+      In altre parole, tutte le istanze di Button nell'applicazione 
+      useranno questo stile.
+    - <Setter Property="FontSize" Value="24" /> : Questo settaggio 
+      imposta la dimensione del carattere per tutti i bottoni a 24 
+      unità di dimensione del testo.
+    - <Setter Property="Margin" Value="10,10,10,10"/> : Questo settaggio 
+      imposta il margine (spazio vuoto) intorno ai bottoni. Il valore 
+      "10,10,10,10" sta indicando il margine superiore, destro, inferiore 
+      e sinistro rispettivamente, tutti impostati a 10 unità. Questo 
+      significa che ci saranno 10 unità di spazio vuoto sopra, a destra, 
+      sotto e a sinistra di ogni bottone.
+    - <Setter Property="Width" Value="100"/> : Questo settaggio imposta 
+      la larghezza di tutti i bottoni a 100 unità. Quindi, tutti i bottoni 
+      avranno la stessa larghezza fissa di 100 unità.
+    
+    In sostanza, questo blocco di codice definisce uno stile uniforme per 
+    tutti i bottoni nell'applicazione, garantendo che abbiano la stessa 
+    dimensione del carattere, margine e larghezza. Ciò migliora la coerenza 
+    nell'aspetto e nel layout dei bottoni all'interno dell'interfaccia utente.
+    
+    
+****************************************************************************************************************
+    
+    
+    3)
+    <DockPanel>
+    
+    
+    Il tag <DockPanel> è un layout panel in XAML che organizza i suoi
+    elementi figlio lungo i bordi del pannello padre. Il suo scopo 
+    principale è quello di consentire un posizionamento flessibile 
+    degli elementi figlio rispetto ai bordi del contenitore genitore, 
+    in modo simile a come funzionano i docks (docking) in un ambiente 
+    di sviluppo integrato (IDE) come Visual Studio.
+    Ecco il significato, la funzione e l'uso pratico del tag <DockPanel>:
+    - Significato: Il <DockPanel> è un tipo di layout panel che organizza 
+      gli elementi figlio lungo i bordi del pannello padre. Gli elementi 
+      figlio possono essere ancorati (docked) ai bordi del pannello padre 
+      (top, bottom, left, right) o possono occupare lo spazio rimanente 
+      nel centro.
+    - Funzione: La funzione principale di <DockPanel> è quella di consentire 
+      un posizionamento flessibile degli elementi figlio rispetto ai bordi 
+      del contenitore genitore. Gli elementi figlio vengono ancorati ai 
+      bordi specificati e il pannello padre si adatta dinamicamente alle 
+      dimensioni e alla posizione degli elementi figlio.
+    - Uso pratico: 
+    ▪ Posizionamento dei controlli: Puoi utilizzare <DockPanel> per posizionare 
+      i controlli della tua interfaccia utente (ad esempio, pulsanti, caselle 
+      di testo, ecc.) lungo i bordi della finestra o del contenitore genitore 
+      in modo flessibile.
+    ▪ Interfacce utente flessibili: Puoi utilizzare <DockPanel> per creare 
+      interfacce utente flessibili e responsive, dove gli elementi figlio 
+      possono adattarsi dinamicamente alle dimensioni e alla disposizione 
+      del contenitore genitore.
+    ▪ Organizzazione degli elementi: Puoi utilizzare <DockPanel> per organizzare 
+      gli elementi della tua interfaccia utente in modo logico e intuitivo, 
+      ad esempio posizionando i controlli di navigazione nella parte superiore 
+      e inferiore della finestra, o i pannelli laterali sui lati.
+    
+    In sintesi, <DockPanel> è un componente essenziale per la progettazione 
+    delle interfacce utente in XAML, consentendo un posizionamento flessibile 
+    degli elementi figlio rispetto ai bordi del contenitore genitore.
+    
+    
+****************************************************************************************************************    
+    
+    
+    4) 
+    <StackPanel DockPanel.Dock="Right">
+    
+    
+    Il tag <StackPanel> è un altro layout panel in XAML che organizza
+    i suoi elementi figlio in una pila verticale o orizzontale, a seconda 
+    della direzione specificata. La proprietà DockPanel.Dock specificata 
+    all'interno di un <StackPanel> è un attributo aggiuntivo che indica 
+    come il <StackPanel> stesso dovrebbe essere posizionato all'interno 
+    di un DockPanel genitore.
+    Ecco il significato, la funzione e l'uso pratico del tag <StackPanel DockPanel.Dock="Right">:
+    - Significato: Indica che il <StackPanel> deve essere posizionato sul 
+      lato destro del suo contenitore genitore di tipo DockPanel. In altre 
+      parole, il <StackPanel> sarà ancorato al bordo destro del DockPanel 
+      genitore.
+    - Funzione: La funzione principale di questa configurazione è quella di 
+      posizionare il <StackPanel> sul lato destro del DockPanel genitore, 
+      in modo che gli elementi all'interno del <StackPanel> vengano allineati 
+      verticalmente (per impostazione predefinita) e siano visualizzati sul 
+      lato destro della finestra o del contenitore genitore.
+    - Uso pratico:
+    ▪ Layout flessibile: Puoi utilizzare <StackPanel DockPanel.Dock="Right"> 
+      per creare layout flessibili, dove gli elementi del <StackPanel> sono 
+      posizionati sul lato destro della finestra o del contenitore genitore, 
+      consentendo una disposizione ordinata degli elementi dell'interfaccia 
+      utente.
+    ▪ Interfacce utente bilanciate: Puoi utilizzare questa configurazione per 
+      bilanciare l'aspetto e il layout della tua interfaccia utente, ad esempio
+      posizionando i controlli di navigazione o i pannelli laterali sul lato 
+      destro della finestra, mantenendo il contenuto principale allineato a 
+      sinistra.
+    ▪ Organizzazione degli elementi: Puoi utilizzare <StackPanel DockPanel.Dock="Right"> 
+      per organizzare gli elementi della tua interfaccia utente in modo logico 
+      e intuitivo, mantenendo una struttura coerente e ordinata.
+    
+    In sintesi, <StackPanel DockPanel.Dock="Right"> è una configurazione specifica 
+    che posiziona un <StackPanel> sul lato destro del suo contenitore genitore di 
+    tipo DockPanel, consentendo una disposizione ordinata degli elementi 
+    dell'interfaccia utente.
+    
+    
+****************************************************************************************************************        
+    
+    
+    5)
+    <WrapPanel>
+    
+    
+    Il tag <WrapPanel> è un altro layout panel in XAML che organizza i suoi
+    elementi figlio in righe o colonne e, quando lo spazio disponibile è 
+    esaurito, passa automaticamente alla riga o colonna successiva. Questo 
+    layout è utile quando hai una serie di elementi che devono essere 
+    visualizzati uno accanto all'altro, ma vuoi che si "avvolgano" in modo 
+    da adattarsi allo spazio disponibile. Ecco una spiegazione più dettagliata 
+    del tag <WrapPanel>:
+    - Significato: Il <WrapPanel> dispone gli elementi figlio in righe o 
+      colonne, e quando lo spazio disponibile per gli elementi è esaurito, 
+      sposta automaticamente gli elementi alla riga o colonna successiva. 
+      Questo processo di "avvolgimento" consente di adattare dinamicamente 
+      il layout in base allo spazio disponibile.
+    - Funzione: La funzione principale del <WrapPanel> è quella di consentire 
+      il wrapping (avvolgimento) degli elementi figlio in modo da adattarsi 
+      allo spazio disponibile. Ad esempio, se hai una serie di bottoni 
+      all'interno di un <WrapPanel> e la larghezza della finestra è limitata, 
+      i bottoni si sposteranno automaticamente alla riga successiva per 
+      adattarsi allo spazio disponibile.
+    - Uso pratico:
+    ▪ Layout flessibile: Puoi utilizzare <WrapPanel> quando hai una serie 
+      di elementi che devono essere disposti uno accanto all'altro, ma vuoi 
+      che si avvolgano in modo da adattarsi allo spazio disponibile, ad 
+      esempio quando crei un elenco di pulsanti o caselle di controllo.
+    ▪ Interfacce utente responsive: Puoi utilizzare <WrapPanel> per creare 
+      interfacce utente responsive, dove gli elementi si adattano dinamicamente 
+      alla dimensione della finestra o del contenitore genitore, migliorando 
+      l'esperienza dell'utente su dispositivi con schermi di diverse dimensioni.
+    ▪ Organizzazione degli elementi: Puoi utilizzare <WrapPanel> per organizzare 
+      gli elementi della tua interfaccia utente in modo logico e intuitivo, 
+      ad esempio disporre dinamicamente le miniature delle immagini o i pulsanti 
+      di azione in una griglia fluida. 
+    
+    In sintesi, <WrapPanel> è un componente utile per la progettazione delle 
+    interfacce utente in XAML, consentendo di organizzare dinamicamente gli 
+    elementi figlio in righe o colonne e di adattare il layout in base allo 
+    spazio disponibile.
+    
+    
+****************************************************************************************************************        
+    
+    
+    6)
+    
+    -->
