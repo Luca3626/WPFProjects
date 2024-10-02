@@ -16,6 +16,7 @@ obj/
 *.user
 *.userosscache
 *.sln.docstates
+*.sln
 
 # File temporanei e di backup
 *.tmp
